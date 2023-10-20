@@ -3,22 +3,20 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Switch, TouchableOpacity } from 'react-native-web';
 
+const colorList = [
+    {mau: "#C5F1FB", img: require('../Image/vs_silver.png')},
+    {mau: "#F30D0D", img: require('../Image/vs_red.png')},
+    {mau: "#000000", img: require('../Image/vs_black.png')},
+    {mau: "#234896", img: require('../Image/vs_blue.png')},
+    
+]
 
 export default function Screen2({ navigation }) {
     const [anh, setAnh] = useState(require('../Image/vs_blue.png'));
-    switch(anh){
-        case 'silver':
-            return  require('../Image/vs_silver.png');
-        case 'red':
-            return require('../Image/vs_red.png');
-        case 'black':
-            return require('../Image/vs_black.png');
-        
-        case 'blue':
-            return require('../Image/vs_blue.png');
+    
+    const getAnh = (anh) =>{
+        setAnh(anh)
     }
-
-
 
     return ( <
         View style = { styles.container } >
@@ -30,34 +28,23 @@ export default function Screen2({ navigation }) {
             <View style = {styles.colorChoose}>
                 <Text style = {styles.textColor}>Chọn một màu bên dưới:</Text>
 
+                {colorList.map((color) =>
                 <TouchableOpacity
-                onPress = {()=> setAnh('silver')}>
-                <Image source={require('../Image/lineBlue.png')} style = {styles.imageColor}/>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                onPress = {()=> setAnh('red')}
-                >
-                <Image source={require('../Image/Red.png')} style = {styles.imageColor}/>             
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                onPress = {()=> setAnh('black')}
-                >              
-                <Image source={require('../Image/black.png')} style = {styles.imageColor}/>              
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                onPress = {()=> setAnh('blue')}
-                >               
-                <Image source={require('../Image/Blue.png')} style = {styles.imageColor}/>
-                </TouchableOpacity>
-
+                key = {color}
+                style = {[styles.imageColor, {backgroundColor:color.mau}]}
+                onPress = {()=>getAnh(color.img)}
+                ></TouchableOpacity>
+                )}
+                
+               
                 <TouchableOpacity style = {styles.buttonXong} 
-                onPress = {()=> navigation.navigate('screen1')}
+                onPress = {()=> navigation.navigate('screen1', {setAnh: anh})}
                 >              
                 <Text style = {styles.textXong}>Xong</Text>
                 </TouchableOpacity>
+                
+
+                
 
             </View>
         </View>
@@ -94,6 +81,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     imageColor:{
+        borderWidth:1,
         width: 85,
         height: 80,
         marginVertical: 8,     

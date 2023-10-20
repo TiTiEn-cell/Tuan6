@@ -2,11 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { TouchableOpacity } from 'react-native-web';
 
-export default function Screen1({ navigation }) {
-    return ( 
+export default function Screen1({ navigation, route}) {
+    //const setAnh = route.params.setAnh;
+    return (    
         <View style = { styles.container } >
             <Image
-                source={require("../Image/vs_blue.png")}
+                source={require('../Image/vs_blue.png')}
                 style = {styles.imagePhone}
             />
             <View style = {styles.body}>
